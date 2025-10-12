@@ -1,0 +1,51 @@
+/* src/assets/global.css */
+
+/* 1. Importação da Fonte (Ex: Sora, do Google Fonts) */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&display=swap');
+
+/* 2. Definição das Variáveis de Cor e Estilo */
+:root {
+  /* Paleta de Cores Suaves */
+  --cor-fundo: #1A1A1A; /* Um preto não tão intenso, mais suave para os olhos */
+  --cor-branco-acinzentado: #F5F5F5; /* Branco levemente acinzentado, como solicitado */
+  --cor-texto-principal: #E0E0E0; /* Cor principal para textos, contrastante e suave */
+  --cor-texto-secundario: #A0A0A0; /* Para textos com menor destaque */
+  --cor-laranja-destaque: #FF8C42; /* Um laranja moderno e não muito saturado */
+  
+  /* Variáveis para o Efeito Glassmorphism */
+  --cor-glass-bg: rgba(245, 245, 245, 0.05); /* Fundo do "vidro", bem sutil */
+  --cor-glass-border: rgba(245, 245, 245, 0.2); /* Borda do "vidro" */
+
+  /* Tipografia */
+  --fonte-principal: 'Sora', sans-serif;
+  --fonte-destaque-serifa: 'Playfair Display', serif;
+  --fonte-logo-robusta: 'Montserrat', sans-serif; /* Nossa nova fonte! */
+}
+
+/* 3. Reset e Estilos Globais */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto-principal);
+  font-family: var(--fonte-principal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Classes utilitárias que usaremos depois */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
