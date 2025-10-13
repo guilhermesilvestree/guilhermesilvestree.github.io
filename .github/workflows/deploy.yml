@@ -1,0 +1,46 @@
+# Nome do Workflow
+name: Deploy to GitHub Pages
+
+# Gatilho: Este workflow roda sempre que houver um 'push' na branch 'main'
+on:
+  push:
+    branches:
+      - main  # ou 'master', dependendo do nome da sua branch principal
+
+# Permissões: Concede permissão para o workflow escrever no repositório (para criar a branch gh-pages)
+permissions:
+  contents: write
+
+# Tarefas (Jobs) a serem executadas
+jobs:
+  build-and-deploy:
+    # O tipo de máquina virtual para rodar a tarefa
+    runs-on: ubuntu-latest
+
+    # Os passos da tarefa
+    steps:
+      # 1. Baixa o código do seu repositório
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. Configura o ambiente Node.js na versão 20
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm' # Habilita o cache para acelerar instalações futuras
+
+      # 3. Instala as dependências do projeto
+      - name: Install dependencies
+        run: npm install
+
+      # 4. Executa o script de build para gerar a pasta 'dist'
+      - name: Build
+        run: npm run build
+
+      # 5. Faz o deploy da pasta 'dist' para a branch 'gh-pages'
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist

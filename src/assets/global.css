@@ -1,27 +1,29 @@
 /* src/assets/global.css */
 
-/* 1. Importação da Fonte (Ex: Sora, do Google Fonts) */
+/* 1. Importação da Fonte */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400..800&display=swap');
+
 
 /* 2. Definição das Variáveis de Cor e Estilo */
 :root {
   /* Paleta de Cores Suaves */
-  --cor-fundo: #1A1A1A; /* Um preto não tão intenso, mais suave para os olhos */
-  --cor-branco-acinzentado: #F5F5F5; /* Branco levemente acinzentado, como solicitado */
-  --cor-texto-principal: #E0E0E0; /* Cor principal para textos, contrastante e suave */
-  --cor-texto-secundario: #A0A0A0; /* Para textos com menor destaque */
-  --cor-laranja-destaque: #FF8C42; /* Um laranja moderno e não muito saturado */
+  --cor-fundo: #050505;
+  --cor-branco-acinzentado: #F5F5F5;
+  --cor-texto-principal: #E0E0E0;
+  --cor-texto-secundario: #A0A0A0;
+  --cor-laranja-destaque: #FF8C42;
   
   /* Variáveis para o Efeito Glassmorphism */
-  --cor-glass-bg: rgba(245, 245, 245, 0.05); /* Fundo do "vidro", bem sutil */
-  --cor-glass-border: rgba(245, 245, 245, 0.2); /* Borda do "vidro" */
+  --cor-glass-bg: rgba(30, 30, 30, 0.25);
+  --cor-glass-border: rgba(245, 245, 245, 0.15);
 
   /* Tipografia */
   --fonte-principal: 'Sora', sans-serif;
-  --fonte-destaque-serifa: 'Playfair Display', serif;
-  --fonte-logo-robusta: 'Montserrat', sans-serif; /* Nossa nova fonte! */
+  --fonte-destaque-serifa: 'Syne', serif;
+  --fonte-logo-robusta: 'Montserrat', sans-serif;
 }
 
 /* 3. Reset e Estilos Globais */
@@ -41,9 +43,59 @@ body {
   font-family: var(--fonte-principal);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
-/* Classes utilitárias que usaremos depois */
+/*
+  NOVO: ANIMAÇÃO PARA O EFEITO DE RUÍDO
+  Esta animação muda a posição do background em 10 passos para criar um efeito granulado.
+*/
+@keyframes animatedNoise {
+  0% { background-position: 0 0; }
+  10% { background-position: -5% -10%; }
+  20% { background-position: -15% 5%; }
+  30% { background-position: 7% -25%; }
+  40% { background-position: 20% 25%; }
+  50% { background-position: -25% 10%; }
+  60% { background-position: 15% 5%; }
+  70% { background-position: 0% 15%; }
+  80% { background-position: 25% 35%; }
+  90% { background-position: -10% 10%; }
+  100% { background-position: 0 0; }
+}
+
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  
+  background-image: url('https://doce.sh/img/noise-v3.webp');
+  background-repeat: repeat;
+  
+  background-size: 250px 250px;
+
+  opacity: 0.06;
+  
+  z-index: 100; 
+
+  pointer-events: none;
+  
+  image-rendering: crisp-edges;
+  transition: all .3s;
+  animation: animatedNoise 4s steps(10) infinite;
+}
+
+/* --- NOVA REGRA PARA DESATIVAR O RUÍDO --- */
+/* Quando o body tiver a classe .noise-disabled, o pseudo-elemento some */
+body.noise-disabled::before {
+  display: none;
+}
+
+/* Classes utilitárias */
 .container {
   max-width: 1200px;
   margin: 0 auto;
