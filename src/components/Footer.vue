@@ -38,7 +38,7 @@
                 <div class="album-art-placeholder"></div>
              </div>
             <div class="music-details">
-              <div class="music-status-line"><span>Conectando...</span></div>
+              <div class="music-status-line"><span>Carregando...</span></div>
             </div>
           </div>
         </Transition>
@@ -58,7 +58,8 @@
 <script setup>
 import { onMounted, onUnmounted, ref, watch } from 'vue';
 import { Code, Heart, Github, Linkedin, Instagram, Music } from 'lucide-vue-next';
-import { nowPlaying, connectMusicSocket, disconnectMusicSocket } from '../services/musicService';
+// Importa as novas funções de polling
+import { nowPlaying, startMusicPolling, stopMusicPolling } from '../services/musicService';
 import { FastAverageColor } from 'fast-average-color';
 
 const fac = new FastAverageColor();
@@ -69,8 +70,8 @@ watch(nowPlaying, (newTrack) => {
     fac.getColorAsync(newTrack.albumArt)
       .then(color => {
         footerStyle.value = {
-          '--light-color': color.hex, // Usar HEX para a cor base
-          '--light-opacity': 0.4     // Opacidade base para os brilhos
+          '--light-color': color.hex,
+          '--light-opacity': 0.25
         };
       })
       .catch(e => {
@@ -82,8 +83,15 @@ watch(nowPlaying, (newTrack) => {
   }
 }, { immediate: true });
 
-onMounted(() => { connectMusicSocket(); });
-onUnmounted(() => { disconnectMusicSocket(); });
+// Ao montar o componente, inicia o polling
+onMounted(() => {
+  startMusicPolling();
+});
+
+// Ao desmontar, para o polling para economizar recursos
+onUnmounted(() => {
+  stopMusicPolling();
+});
 </script>
 
 <style scoped>
@@ -106,10 +114,8 @@ onUnmounted(() => { disconnectMusicSocket(); });
 .footer-bar {
   position: relative;
   overflow: hidden;
-  /* --light-color e --light-opacity são controlados pelo script */
 }
 
-/* Foco de luz principal 1 (fundo, esquerda) */
 .footer-bar::before {
   content: '';
   position: absolute;
@@ -125,7 +131,6 @@ onUnmounted(() => { disconnectMusicSocket(); });
   pointer-events: none;
 }
 
-/* Foco de luz principal 2 (fundo, direita) */
 .footer-bar::after {
   content: '';
   position: absolute;
@@ -134,17 +139,16 @@ onUnmounted(() => { disconnectMusicSocket(); });
   width: 400px;
   height: 250px;
   background-color: var(--light-color);
-  opacity: calc(var(--light-opacity) * 0.8); /* Um pouco mais sutil */
+  opacity: calc(var(--light-opacity) * 0.8);
   filter: blur(120px);
   animation: move-lights 25s infinite linear alternate-reverse;
   transition: opacity 1.2s ease, background-color 1.2s ease;
   pointer-events: none;
 }
 
-/* Foco de luz específico para a capa do álbum */
 .album-art-wrapper {
   position: relative;
-  z-index: 2; /* Fica acima das luzes de fundo */
+  z-index: 2;
 }
 .album-art-wrapper::before {
   content: '';
@@ -156,14 +160,14 @@ onUnmounted(() => { disconnectMusicSocket(); });
   background-color: var(--light-color);
   transform: translate(-50%, -50%);
   border-radius: 6px;
-  filter: blur(25px); /* Desfoque menor para ser mais focado */
-  opacity: calc(var(--light-opacity) * 2); /* Mais intenso */
-  z-index: -1; /* Fica atrás da imagem */
+  filter: blur(25px);
+  opacity: calc(var(--light-opacity) * 2);
+  z-index: -1;
   transition: opacity 1.2s ease, background-color 1.2s ease;
 }
 
 
-/* --- ESTILOS GERAIS DO FOOTER (sem grandes alterações) --- */
+/* --- ESTILOS GERAIS DO FOOTER --- */
 .footer-bar {
   width: 100%; padding: 1rem 0; background-color: var(--cor-glass-bg);
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);

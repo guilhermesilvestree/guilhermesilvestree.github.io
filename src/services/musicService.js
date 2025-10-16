@@ -1,51 +1,46 @@
 import { ref } from 'vue';
+import apiService from './apiService'; // Usando o serviço de API REST novamente
 
-// A URL agora é dinâmica e será lida do seu arquivo .env apropriado
-const WS_URL = import.meta.env.VITE_WS_URL;
-
+// A referência reativa que seu componente utiliza.
 export const nowPlaying = ref(null);
 
-let socket = null;
+// Variável para guardar a referência do nosso temporizador
+let pollingInterval = null;
 
-export const connectMusicSocket = () => {
-  if (!WS_URL) {
-    console.error('URL do WebSocket não definida. Verifique seu arquivo .env (VITE_WS_URL).');
-    return;
+/**
+ * Busca a música atual na API e atualiza o estado reativo.
+ */
+const fetchNowPlaying = async () => {
+  try {
+    const response = await apiService.getNowPlaying();
+    nowPlaying.value = response.data;
+    console.log('🎵 Música atualizada via polling:', response.data);
+  } catch (error) {
+    console.error('❌ Erro ao buscar música via polling:', error);
   }
-  
-  if (socket && socket.readyState === WebSocket.OPEN) {
-    console.log('✅ Conexão WebSocket já está ativa.');
-    return;
-  }
-
-  socket = new WebSocket(WS_URL);
-
-  socket.onopen = () => {
-    console.log('✅ Conectado ao serviço de música em tempo real!');
-  };
-
-  socket.onmessage = (event) => {
-    try {
-      const track = JSON.parse(event.data);
-      nowPlaying.value = track;
-      console.log('🎵 Música atualizada:', track);
-    } catch (error) {
-      console.error('Erro ao processar a mensagem do WebSocket:', error);
-    }
-  };
-
-  socket.onclose = () => {
-    console.warn('🔌 Conexão com o WebSocket foi fechada.');
-  };
-
-  socket.onerror = (error) => {
-    console.error('❌ Erro no WebSocket:', error);
-    nowPlaying.value = null;
-  };
 };
 
-export const disconnectMusicSocket = () => {
-  if (socket) {
-    socket.close();
+/**
+ * Inicia o processo de polling.
+ * Faz uma chamada imediata e depois a cada 1 minuto.
+ */
+export const startMusicPolling = () => {
+  if (pollingInterval) {
+    clearInterval(pollingInterval);
+  }
+
+  fetchNowPlaying();
+
+  pollingInterval = setInterval(fetchNowPlaying, 60000);
+};
+
+/**
+ * Para o processo de polling para economizar recursos quando o componente não está visível.
+ */
+export const stopMusicPolling = () => {
+  if (pollingInterval) {
+    clearInterval(pollingInterval);
+    pollingInterval = null; // Limpa a referência
+    console.log('🛑 Polling de música interrompido.');
   }
 };
