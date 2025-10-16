@@ -37,6 +37,9 @@ jobs:
       # 4. Executa o script de build para gerar a pasta 'dist'
       - name: Build
         run: npm run build
+        env:
+          VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
 
       # 5. Faz o deploy da pasta 'dist' para a branch 'gh-pages'
       - name: Deploy to GitHub Pages
