@@ -12,36 +12,40 @@ permissions:
   contents: write
 
 # Tarefas (Jobs) a serem executadas
+# ... (início do arquivo) ...
+
 jobs:
   build-and-deploy:
-    # O tipo de máquina virtual para rodar a tarefa
+    # ADICIONE A LINHA ABAIXO:
+    environment: github-pages
+
+    # O resto do seu job continua aqui
     runs-on: ubuntu-latest
 
-    # Os passos da tarefa
     steps:
-      # 1. Baixa o código do seu repositório
+      # 1. Checkout
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 2. Configura o ambiente Node.js na versão 20
+      # 2. Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm' # Habilita o cache para acelerar instalações futuras
+          cache: 'npm'
 
-      # 3. Instala as dependências do projeto
+      # 3. Install dependencies
       - name: Install dependencies
         run: npm install
 
-      # 4. Executa o script de build para gerar a pasta 'dist'
+      # 4. Build (Sua configuração aqui está correta)
       - name: Build
         run: npm run build
         env:
-          VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
           VITE_API_URL: ${{ secrets.VITE_API_URL }}
+          VITE_WS_URL: ${{ secrets.VITE_WS_URL }}
 
-      # 5. Faz o deploy da pasta 'dist' para a branch 'gh-pages'
+      # 5. Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
