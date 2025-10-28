@@ -1,32 +1,24 @@
-/* src/assets/global.css */
-
-/* 1. Importação da Fonte */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400..800&display=swap');
 
 
-/* 2. Definição das Variáveis de Cor e Estilo */
 :root {
-  /* Paleta de Cores Suaves */
   --cor-fundo: #050505;
   --cor-branco-acinzentado: #F5F5F5;
   --cor-texto-principal: #E0E0E0;
   --cor-texto-secundario: #A0A0A0;
   --cor-laranja-destaque: #FF8C42;
   
-  /* Variáveis para o Efeito Glassmorphism */
   --cor-glass-bg: rgba(30, 30, 30, 0.25);
   --cor-glass-border: rgba(245, 245, 245, 0.15);
 
-  /* Tipografia */
   --fonte-principal: 'Sora', sans-serif;
   --fonte-destaque-serifa: 'Syne', serif;
   --fonte-logo-robusta: 'Montserrat', sans-serif;
 }
 
-/* 3. Reset e Estilos Globais */
 * {
   margin: 0;
   padding: 0;
@@ -46,10 +38,6 @@ body {
   overflow-x: hidden;
 }
 
-/*
-  NOVO: ANIMAÇÃO PARA O EFEITO DE RUÍDO
-  Esta animação muda a posição do background em 10 passos para criar um efeito granulado.
-*/
 @keyframes animatedNoise {
   0% { background-position: 0 0; }
   10% { background-position: -5% -10%; }
@@ -64,6 +52,29 @@ body {
   100% { background-position: 0 0; }
 }
 
+@keyframes noise {
+  0% {
+    background-position: 100% 0;
+    transform: scale(3) rotate(180deg);
+  }
+  25% {
+    background-position: 100% 100%;
+    transform: scale(3) rotate(0);
+  }
+  50% {
+    background-position: 0 0;
+    transform: scale(3) rotate(180deg);
+  }
+  75% {
+    background-position: 0 100%;
+    transform: scale(3) rotate(0);
+  }
+  to {
+    background-position: 100% 0;
+    transform: scale(3) rotate(180deg);
+  }
+}
+
 
 body::before {
   content: "";
@@ -76,7 +87,7 @@ body::before {
   background-image: url('https://doce.sh/img/noise-v3.webp');
   background-repeat: repeat;
   
-  background-size: 250px 250px;
+  background-size: 125px 125px;
 
   opacity: 0.06;
   
@@ -86,16 +97,14 @@ body::before {
   
   image-rendering: crisp-edges;
   transition: all .3s;
-  animation: animatedNoise 4s steps(10) infinite;
+  animation: noise 4s steps(10) infinite;
 }
 
-/* --- NOVA REGRA PARA DESATIVAR O RUÍDO --- */
-/* Quando o body tiver a classe .noise-disabled, o pseudo-elemento some */
+
 body.noise-disabled::before {
   display: none;
 }
 
-/* Classes utilitárias */
 .container {
   max-width: 1200px;
   margin: 0 auto;

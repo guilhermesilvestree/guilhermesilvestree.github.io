@@ -1,7 +1,7 @@
 <template>
   <div>
     <HeroSection />
-    <!-- <Timeline /> -->
+    <Timeline />
   </div>
 </template>
 

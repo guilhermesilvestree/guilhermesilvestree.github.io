@@ -31,7 +31,7 @@
                   <div class="music-status-line">
                     <div v-if="nowPlaying.isPlaying" class="live-indicator">
                       <div class="live-dot"></div>
-                      <span>Ao Vivo</span>
+                      <span>Escutando</span>
                     </div>
                     <span v-else>Última ouvida</span>
                   </div>
@@ -116,7 +116,6 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-/* --- ANIMAÇÕES --- */
 @keyframes move-lights {
   0% {
     transform: translate(0, 0);
@@ -135,7 +134,6 @@ onUnmounted(() => {
   }
 }
 
-/* NOVO: Animação para o Skeleton Loader */
 @keyframes shimmer {
   0% {
     background-position: -200% 0;
@@ -176,7 +174,6 @@ onUnmounted(() => {
   }
 }
 
-/* --- EFEITO DE LUZ --- */
 .footer-bar {
   position: relative;
   overflow: hidden;
@@ -230,7 +227,6 @@ onUnmounted(() => {
     background-color 1.2s ease;
 }
 
-/* --- ESTILOS GERAIS DO FOOTER --- */
 .footer-bar {
   width: 100%;
   padding: 1rem 0;
@@ -290,7 +286,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.5rem; /* Adicionado para consistência */
+  padding: 0.5rem;
 }
 .music-link {
   display: flex;
@@ -322,7 +318,7 @@ onUnmounted(() => {
   flex-direction: column;
   align-items: flex-start;
   min-width: 150px;
-  gap: 4px; /* Adicionado para espaçamento consistente */
+  gap: 4px;
 }
 .music-status-line {
   font-size: 0.75rem;
@@ -354,12 +350,12 @@ onUnmounted(() => {
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 180px;
-  height: 16px; /* Altura fixa */
+  height: 16px;
 }
 .music-artist {
   color: var(--cor-texto-secundario);
   font-size: 0.8rem;
-  height: 14px; /* Altura fixa */
+  height: 14px;
 }
 .separator {
   width: 1px;
@@ -382,7 +378,6 @@ onUnmounted(() => {
   transform: scale(1.1);
 }
 
-/* --- ESTILOS DO SKELETON LOADER --- */
 .skeleton {
   background-color: rgba(255, 255, 255, 0.08);
   border-radius: 4px;
@@ -406,7 +401,6 @@ onUnmounted(() => {
   margin-bottom: 2px;
 }
 
-/* --- RESPONSIVIDADE --- */
 @media (max-width: 768px) {
   .footer-content {
     flex-direction: column;
@@ -421,7 +415,6 @@ onUnmounted(() => {
   }
 }
 @media (max-width: 520px) {
-  /* Ajuste do breakpoint para melhor encaixe */
   .footer-right {
     gap: 1rem;
   }
@@ -433,7 +426,7 @@ onUnmounted(() => {
   }
   .music-title {
     max-width: 100px;
-  } /* Reduz a largura em telas menores */
+  }
   .music-details {
     min-width: 120px;
   }

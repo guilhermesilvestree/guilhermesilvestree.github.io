@@ -92,7 +92,6 @@ onMounted(() => {
   }
 }
 
-/* --- NOVAS ANIMAÇÕES PARA AS BOLAS DE LUZ --- */
 @keyframes float {
   0% { transform: translate(0, 0); }
   50% { transform: translate(10px, 10px); }
@@ -112,7 +111,6 @@ onMounted(() => {
   overflow: hidden; 
 }
 
-/* Bolas de luz principais (anteriormente ::before e ::after da section) */
 .timeline-section::before,
 .timeline-section::after {
   content: '';
@@ -138,13 +136,11 @@ onMounted(() => {
   bottom: 5%;
   right: -50px;
   opacity: 0.1;
-  animation-delay: 2s; /* Para dessincronizar a animação */
+  animation-delay: 2s;
 }
 
-/* --- NOVOS PONTOS DE LUZ MENORES (USANDO PSEUDO-ELEMENTOS DOS ITENS) --- */
 .timeline-item:nth-child(1)::before {
-  /* O pseudo-elemento :before já existe para o marcador, então vamos usar um after */
-  position: absolute; /* Já é absolute, apenas ajustar */
+  position: absolute;
   left: 16.5px;
   transform: translateX(-50%);
   top: 10px;
@@ -157,29 +153,29 @@ onMounted(() => {
 }
 
 .timeline-item:nth-child(1)::after,
-.timeline-item:nth-child(2)::before { /* Usamos o ::before do segundo item também */
+.timeline-item:nth-child(2)::before {
   content: '';
   position: absolute;
   z-index: 0;
   border-radius: 50%;
   filter: blur(100px);
-  background-color: rgba(255, 140, 66, 0.1); /* Um pouco mais sutil */
+  background-color: rgba(255, 140, 66, 0.1);
   animation: float 12s ease-in-out infinite alternate, glow 6s ease-in-out infinite alternate;
 }
 
-.timeline-item:nth-child(1)::after { /* Bola de luz para o primeiro item */
+.timeline-item:nth-child(1)::after {
   width: 200px;
   height: 200px;
   top: 50px;
-  right: -100px; /* Posicionada à direita do primeiro item */
+  right: -100px;
   animation-delay: 4s;
 }
 
-.timeline-item:nth-child(2)::before { /* Bola de luz para o segundo item */
+.timeline-item:nth-child(2)::before {
   width: 250px;
   height: 250px;
   bottom: -50px;
-  left: -150px; /* Posicionada à esquerda do segundo item */
+  left: -150px;
   animation-delay: 6s;
 }
 

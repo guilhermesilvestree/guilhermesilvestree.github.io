@@ -30,9 +30,6 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 
-// --- LÓGICA PARA ANIMAÇÃO DO TEXTO ---
-
-// Lista de frases que irão se alternar. Adicione ou mude aqui!
 const subtitles = ref([
   'Criando ideias em código',
   'Desenvolvedor Front-end',
@@ -41,19 +38,16 @@ const subtitles = ref([
 
 const currentSubtitleIndex = ref(0);
 
-// Propriedade computada que retorna a frase atual
 const currentSubtitle = computed(() => subtitles.value[currentSubtitleIndex.value]);
 
 let intervalId = null;
 
-// Quando o componente é montado, inicia o intervalo
 onMounted(() => {
   intervalId = setInterval(() => {
     currentSubtitleIndex.value = (currentSubtitleIndex.value + 1) % subtitles.value.length;
   }, 3000); 
 });
 
-// Quando o componente é destruído, limpa o intervalo para evitar problemas
 onUnmounted(() => {
   clearInterval(intervalId);
 });
@@ -66,7 +60,7 @@ onUnmounted(() => {
   min-height: 100vh;
   position: relative;
   overflow: hidden;
-  background-image: url('@/assets/hero-bg.png'); /* Certifique-se que esta imagem está na pasta src/assets */
+  background-image: url('@/assets/hero-bg.png');
   background-size: cover;
   background-position: right center;
 }
@@ -116,9 +110,7 @@ onUnmounted(() => {
   margin-bottom: 1rem;
 }
 
-/* Container para o subtítulo animado */
 .subtitle-container {
-  /* Define uma altura fixa para evitar que o layout "pule" durante a transição */
   height: 40px; 
   display: flex;
   align-items: center;
@@ -129,7 +121,7 @@ onUnmounted(() => {
   font-size: clamp(1rem, 2vw, 1.25rem);
   color: var(--cor-texto-secundario);
   max-width: 500px;
-  margin: 0; /* Remove a margem padrão do <p> */
+  margin: 0;
 }
 
 .social-links {
@@ -166,22 +158,17 @@ onUnmounted(() => {
   height: 20px;
 }
 
-/* --- ESTILOS DA ANIMAÇÃO DO SUBTÍTULO --- */
-
-/* Define a duração da transição */
 .slide-up-blur-enter-active,
 .slide-up-blur-leave-active {
   transition: all 0.5s ease;
 }
 
-/* Estilo do texto que está ENTRANDO: começa de baixo, transparente e com blur */
 .slide-up-blur-enter-from {
   opacity: 0;
   transform: translateY(20px);
   filter: blur(5px);
 }
 
-/* Estilo do texto que está SAINDO: vai para cima, transparente e com blur */
 .slide-up-blur-leave-to {
   opacity: 0;
   transform: translateY(-20px);
