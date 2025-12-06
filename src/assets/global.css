@@ -10,7 +10,7 @@
   --cor-texto-principal: #E0E0E0;
   --cor-texto-secundario: #A0A0A0;
   --cor-laranja-destaque: #FF8C42;
-  
+
   --cor-glass-bg: rgba(30, 30, 30, 0.25);
   --cor-glass-border: rgba(245, 245, 245, 0.15);
 
@@ -39,17 +39,49 @@ body {
 }
 
 @keyframes animatedNoise {
-  0% { background-position: 0 0; }
-  10% { background-position: -5% -10%; }
-  20% { background-position: -15% 5%; }
-  30% { background-position: 7% -25%; }
-  40% { background-position: 20% 25%; }
-  50% { background-position: -25% 10%; }
-  60% { background-position: 15% 5%; }
-  70% { background-position: 0% 15%; }
-  80% { background-position: 25% 35%; }
-  90% { background-position: -10% 10%; }
-  100% { background-position: 0 0; }
+  0% {
+    background-position: 0 0;
+  }
+
+  10% {
+    background-position: -5% -10%;
+  }
+
+  20% {
+    background-position: -15% 5%;
+  }
+
+  30% {
+    background-position: 7% -25%;
+  }
+
+  40% {
+    background-position: 20% 25%;
+  }
+
+  50% {
+    background-position: -25% 10%;
+  }
+
+  60% {
+    background-position: 15% 5%;
+  }
+
+  70% {
+    background-position: 0% 15%;
+  }
+
+  80% {
+    background-position: 25% 35%;
+  }
+
+  90% {
+    background-position: -10% 10%;
+  }
+
+  100% {
+    background-position: 0 0;
+  }
 }
 
 @keyframes noise {
@@ -57,18 +89,22 @@ body {
     background-position: 100% 0;
     transform: scale(3) rotate(180deg);
   }
+
   25% {
     background-position: 100% 100%;
     transform: scale(3) rotate(0);
   }
+
   50% {
     background-position: 0 0;
     transform: scale(3) rotate(180deg);
   }
+
   75% {
     background-position: 0 100%;
     transform: scale(3) rotate(0);
   }
+
   to {
     background-position: 100% 0;
     transform: scale(3) rotate(180deg);
@@ -83,18 +119,18 @@ body::before {
   left: 0;
   right: 0;
   bottom: 0;
-  
-  background-image: url('https://doce.sh/img/noise-v3.webp');
+
+  background-image: url('https://doce.sh/img/noise-4.webp');
   background-repeat: repeat;
-  
+
   background-size: 125px 125px;
 
   opacity: 0.06;
-  
-  z-index: 100; 
+
+  z-index: 100;
 
   pointer-events: none;
-  
+
   image-rendering: crisp-edges;
   transition: all .3s;
   animation: noise 4s steps(10) infinite;

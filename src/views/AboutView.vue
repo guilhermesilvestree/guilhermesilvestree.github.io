@@ -2,20 +2,21 @@
   <section id="sobre" class="about-section">
     <div class="container">
       
-      <h2 class="section-title">Sobre mim</h2>
-      <p class="section-subtitle">Eu falando de mim...</p>
+      <div class="intro-header">
+        <div class="intro-image">
+          <img :src="eu4" alt="Guilherme Silvestre" class="profile-photo" />
+        </div>
+        <div class="intro-text">
+          <h2 class="section-title">Guilherme Silvestre</h2>
+          <p class="section-subtitle">Desenvolvedor iniciante apaixonado por tecnologia e programação</p>
+        </div>
 
-      <div class="photo-gallery">
-        <img :src="eu3" alt="Guilherme Silvestre Foto 3" class="photo photo-3" />
-        <img :src="eu2" alt="Guilherme Silvestre Foto 2" class="photo photo-2" />
-        <img :src="eu4" alt="Guilherme Silvestre Foto 4" class="photo photo-4" />
-        <img :src="eu1" alt="Guilherme Silvestre Foto 1" class="photo photo-1" />
       </div>
       <hr class="divider">
 
       <div class="about-content">
         <div class="text-column">
-          <h3>É Eu:</h3>
+          <h3>Sobre Mim</h3>
           <p>
             <strong>Guilherme Silvestre</strong>. Sou um desenvolvedor iniciante e atualmente
             estudo Ensino Médio com Técnico em Desenvolvimento de Sistemas na ETEC, aqui em
@@ -32,7 +33,7 @@
           </p>
         </div>
         <div class="skills-column">
-          <h3>Eu sei</h3>
+          <h3>Estudo</h3>
           <p>Estou focado em desenvolvimento web moderno, com as seguintes tecnologias:</p>
           <ul class="skills-list">
             <li><img :src="htmlIcon" alt="HTML5 & CSS3 Icon" class="skill-icon" /> HTML5 & CSS3</li>
@@ -46,41 +47,48 @@
         </div>
       </div>
 
-      <hr class="divider" v-if="musicData">
+      <hr class="divider">
 
-      <div id="gostos" class="projects-section" v-if="musicData">
-        <h2 class="section-title">Coisas que eu curto</h2>
+      <div id="projetos" class="projects-section">
+        <h2 class="section-title">Projeto em Destaque</h2>
         <p class="section-subtitle">
-          O que estou ouvindo no momento
+          No que estou me dedicando no momento
         </p>
         
-        <div class="music-gallery">
-          <div v-if="loadingMusic" class="loading-state">
-            <p>Buscando meus favoritos...</p>
-          </div>
-          
-          <div v-else-if="musicError" class="error-state">
-            <p>{{ musicError }}</p>
-          </div>
-          
-          <div v-else-if="musicData" class="music-container">
-            <a :href="musicData.artist.url" target="_blank" class="music-card artist-card">
-              <img :src="musicData.artist.image" :alt="musicData.artist.name" class="artist-image">
-              <div class="artist-info">
-                <span>Artista mais ouvido</span>
-                <strong>{{ musicData.artist.name }}</strong>
-                <span>{{ musicData.artist.plays }} plays</span>
+        <div class="project-showcase">
+          <a href="https://www.agendadoutor.com" target="_blank" class="project-card">
+            <div class="project-image-container">
+              <div class="carousel">
+                <img 
+                  v-for="(image, index) in projectImages" 
+                  :key="index"
+                  :src="image" 
+                  :class="['carousel-image', { active: currentImageIndex === index }]"
+                  alt="Agenda Doutor Screenshot"
+                >
               </div>
-            </a>
-            
-            <a :href="musicData.album.url" target="_blank" class="music-card album-card">
-              <img :src="musicData.album.albumArt" :alt="musicData.album.name" class="album-image">
-              <div class="album-info">
-                <strong>{{ musicData.album.name }}</strong>
-                <span>{{ musicData.album.artist }}</span>
+              <div class="project-overlay">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
               </div>
-            </a>
-          </div>
+            </div>
+            <div class="project-content">
+              <h3>www.agendadoutor.com</h3>
+              <p class="project-description">
+                Um CRM completo que ajuda médicos e clínicas a se organizarem com disparos automáticos de mensagens no WhatsApp, 
+                gestão de pacientes, agendamentos e muito mais.
+              </p>
+              <div class="project-tags">
+                <span class="tag">CRM</span>
+                <span class="tag">WhatsApp</span>
+                <span class="tag">Saúde</span>
+                <span class="tag">Automação</span>
+              </div>
+            </div>
+          </a>
         </div>
       </div>
 
@@ -99,7 +107,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
             Instagram
           </a>
-          <a href="#" target="_blank" class="social-button">
+          <a href="https://www.linkedin.com/in/guilhermesilvestree/" target="_blank" class="social-button">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2
 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
             LinkedIn
@@ -112,7 +120,6 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import apiService from '@/services/apiService' 
 
 import htmlIcon from '@/assets/about/tecn/html.png' 
 import jsIcon from '@/assets/about/tecn/js.png'
@@ -122,40 +129,26 @@ import expressIcon from '@/assets/about/tecn/express.png'
 import mongoDBIcon from '@/assets/about/tecn/mongodb.png'
 import githubIcon from '@/assets/about/tecn/github.png'
 
-import eu1 from '@/assets/about/eu/1.webp'
-import eu2 from '@/assets/about/eu/2.webp'
-import eu3 from '@/assets/about/eu/3.webp'
-import eu4 from '@/assets/about/eu/4.webp'
+import eu4 from '@/assets/about/eu/3.webp'
+import agendaDoutorImg from '@/assets/agendaDoutor.png'
 
-const musicData = ref(null);
-const loadingMusic = ref(true);
-const musicError = ref(null);
+// Carousel para o projeto
+const projectImages = ref([
+  agendaDoutorImg
+]);
+const currentImageIndex = ref(0);
 
-onMounted(async () => {
-  loadingMusic.value = true;
-  musicError.value = null;
-  
-  try {
-    const response = await apiService.getFavorites();
-    musicData.value = response.data;
-
-    if (musicData.value && musicData.value.artist && musicData.value.artist.name === "Matuê") {
-      musicData.value.artist.image = "https://lastfm.freetls.fastly.net/i/u/770x0/c9e9f918b45e38dc4800e4207bf486b7.jpg#c9e9f918b45e38dc4800e4207bf486b7";
-    }
-
-  } catch (err) {
-    console.error('Falha ao buscar favoritos:', err);
-    musicError.value = 'Não foi possível carregar meus favoritos no momento.';
-  } finally {
-    loadingMusic.value = false;
-  }
+onMounted(() => {
+  // Inicia o carrossel
+  setInterval(() => {
+    currentImageIndex.value = (currentImageIndex.value + 1) % projectImages.value.length;
+  }, 3000);
 });
 </script>
 
 <style scoped>
 .about-section {
   padding: 6rem 0; 
-  padding-top: 10rem; 
   background-color: var(--cor-fundo);
   color: var(--cor-texto-principal);
   min-height: 100vh;
@@ -176,35 +169,47 @@ onMounted(async () => {
   margin-bottom: 3rem;
 }
 
-.photo-gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
+.intro-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
   max-width: 1000px;
   margin: 0 auto 4rem auto;
+  padding: 0 1rem;
 }
 
-.photo {
-  width: 100%;
-  aspect-ratio: 9 / 16;
+.intro-text {
+  flex: 1;
+  text-align: left;
+}
+
+.intro-text .section-title {
+  text-align: left;
+  margin-bottom: 0.5rem;
+}
+
+.intro-text .section-subtitle {
+  text-align: left;
+  margin-bottom: 0;
+}
+
+.profile-photo {
+  width: 280px;
+  height: auto;
+  aspect-ratio: 3/4;
   object-fit: cover;
-  border-radius: 12px;
-  border: 3px solid var(--cor-glass-border);
-  background-color: var(--cor-glass-bg);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  border-radius: 20px;
+  border: 1px solid var(--cor-glass-border);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  transform: rotate(3deg);
+  transition: all 0.3s ease;
 }
 
-.photo:hover {
-  transform: scale(1.05) rotate(0deg) !important;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+.profile-photo:hover {
+  transform: rotate(0deg) scale(1.02);
   border-color: var(--cor-laranja-destaque);
 }
-
-.photo-1 { transform: rotate(-3deg); }
-.photo-2 { transform: rotate(2deg); }
-.photo-3 { transform: rotate(4deg); }
-.photo-4 { transform: rotate(-1deg); }
 
 .divider {
   border: none;
@@ -271,11 +276,136 @@ onMounted(async () => {
   filter: invert(1);
 }
 
+/* Projeto em Destaque */
 .projects-section {
   padding-top: 6rem;
   margin-top: -4rem;
 }
 
+.project-showcase {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.project-card {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid var(--cor-glass-border);
+  border-radius: 16px;
+  background-color: var(--cor-glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  text-decoration: none;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.project-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--cor-laranja-destaque);
+  box-shadow: 0 20px 60px rgba(255, 140, 66, 0.2);
+}
+
+.project-image-container {
+  position: relative;
+  flex: 0 0 45%;
+  overflow: hidden;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+}
+
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.carousel-image.active {
+  opacity: 1;
+}
+
+.project-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.project-card:hover .project-overlay {
+  opacity: 1;
+}
+
+.project-overlay svg {
+  color: var(--cor-laranja-destaque);
+  filter: drop-shadow(0 0 10px rgba(255, 140, 66, 0.5));
+}
+
+.project-content {
+  flex: 1;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.project-content h3 {
+  font-family: var(--fonte-logo-robusta);
+  font-size: 1.5rem;
+  color: var(--cor-branco-acinzentado);
+  margin-bottom: 0.75rem;
+  background: linear-gradient(135deg, var(--cor-branco-acinzentado) 0%, var(--cor-laranja-destaque) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.project-description {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--cor-texto-principal);
+  margin-bottom: 1rem;
+}
+
+.project-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tag {
+  padding: 0.4rem 0.85rem;
+  background-color: rgba(255, 140, 66, 0.1);
+  border: 1px solid rgba(255, 140, 66, 0.3);
+  border-radius: 20px;
+  font-size: 0.8rem;
+  color: var(--cor-laranja-destaque);
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.project-card:hover .tag {
+  background-color: rgba(255, 140, 66, 0.2);
+  border-color: var(--cor-laranja-destaque);
+}
+
+/* Música */
 .music-gallery {
   max-width: 1000px;
   margin: 0 auto;
@@ -434,9 +564,45 @@ onMounted(async () => {
     grid-template-columns: 1fr; 
   }
 
-  .photo-gallery {
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+  .intro-header {
+    flex-direction: column-reverse;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .intro-text {
+    text-align: center;
+  }
+
+  .intro-text .section-title,
+  .intro-text .section-subtitle {
+    text-align: center;
+  }
+
+  .profile-photo {
+    width: 240px;
+    transform: rotate(0deg);
+  }
+  
+  .project-card {
+    flex-direction: column;
+  }
+
+  .project-image-container {
+    flex: 0 0 auto;
+    aspect-ratio: 16 / 9;
+  }
+
+  .project-content {
+    padding: 1.5rem;
+  }
+
+  .project-content h3 {
+    font-size: 1.25rem;
+  }
+
+  .project-description {
+    font-size: 0.9rem;
   }
   
   .music-container {

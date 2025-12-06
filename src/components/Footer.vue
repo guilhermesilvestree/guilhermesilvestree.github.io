@@ -6,10 +6,6 @@
           <Code :size="20" />
           <span>Guilherme Silvestre</span>
         </div>
-        <div class="footer-message">
-          <span>Feito com</span>
-          <Heart :size="16" class="heart-icon" fill="currentColor" />
-        </div>
       </div>
 
       <div class="footer-right">
